@@ -1,4 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+const bottomContainerHeight = 80.0;
+const activeCardColor = Color(0xFF1D1E33);
+const bottomContainerColor = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
   @override
@@ -20,45 +26,93 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     flex: 1,
                     child: ReusableCard(
-                      colour: Color(0xFF1D1E33),
+                      colour: activeCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: ReusableCard(colour: Color(0xFF1D1E33)),
+                    child: ReusableCard(
+                      colour: activeCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.venus,
+                        label: 'FEMALE',
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: ReusableCard(colour: Color(0xFF1D1E33)),
+              child: ReusableCard(
+                colour: activeCardColor,
+              ),
             ),
             Expanded(
                 child: Row(
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: Color(0xFF1D1E33),
+                    colour: activeCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: Color(0xFF1D1E33),
+                    colour: activeCardColor,
                   ),
-                )
+                ),
               ],
-            ))
+            )),
+            Container(
+              color: bottomContainerColor,
+              margin: EdgeInsets.only(top: 10),
+              width: double.infinity,
+              height: bottomContainerHeight,
+            )
           ],
         ));
   }
 }
 
+class IconContent extends StatelessWidget {
+  IconContent({this.icon, this.label});
+  final IconData icon;
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          icon,
+          size: 80,
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 18,
+            color: Color(0xFF8D8E98),
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour});
+  ReusableCard({@required this.colour, this.cardChild});
   final Color colour;
+  final Widget cardChild;
   @override
   Widget build(BuildContext context) {
     return Container(
+      child: cardChild,
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: colour,
